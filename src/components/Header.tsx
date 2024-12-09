@@ -112,12 +112,12 @@ const Header = () => {
           className="text-4xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-bold"
           style={{ color: "#7F5546" }}
         >
-          <Link to="/">TenPaws</Link>
+          <Link to="/">Ten<span className="text-[#f1a34a]">Paws</span></Link>
         </div>
 
         {/* 매칭, 안내, 내정보와 드롭다운 바 */}
         <div className="hidden md:flex flex-1 justify-center relative">
-          <div className="flex justify-between items-center w-full max-w-3xl text-3xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-3xl font-medium rounded-lg px-0 py-3">
+          <div className="flex justify-between items-center w-full max-w-3xl text-3xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-3xl font-medium rounded-lg px-0 py-3 ">
             {/* 매칭 */}
             <div
               className="relative flex-1 text-center hover:scale-105 transition-transform duration-200"
