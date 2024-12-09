@@ -106,7 +106,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="relative flex items-center justify-between px-10 py-3 sm:py-3 md:py-3 lg:py-3 xl:py-3 bg-[#f1a34a] shadow-md z-50">
+      <header className="relative flex items-center justify-between px-10 py-3 sm:py-3 md:py-3 lg:py-3 xl:py-3 bg-white shadow-md z-50">
         {/* TENPAWS - 프로젝트명 */}
         <div
           className="text-4xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-4xl font-bold"
@@ -117,7 +117,7 @@ const Header = () => {
 
         {/* 매칭, 안내, 내정보와 드롭다운 바 */}
         <div className="hidden md:flex flex-1 justify-center relative">
-          <div className="flex space-x-[-165px] items-center w-full  text-3xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-3xl font-medium rounded-lg px-0 py-3">
+          <div className="flex justify-between items-center w-full max-w-3xl text-3xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-3xl font-medium rounded-lg px-0 py-3 ">
             {/* 매칭 */}
             <div
               className="relative flex-1 text-center hover:scale-105 transition-transform duration-200"
@@ -150,7 +150,7 @@ const Header = () => {
           {/* 드롭다운 바 */}
           {isDropdownVisible && (
             <div
-              className="absolute left-1/2 transform -translate-x-1/2 bg-[#f1a34a]/80 shadow-none z-[1000] w-[100%] lg:w-[95%] xl:w-[90%]"
+              className="absolute left-1/2 transform -translate-x-1/2 bg-[#ffffff]/80 shadow-none z-[1000] w-[100%] lg:w-[95%] xl:w-[90%]"
               style={{
                 top: "calc(100%)",
                 backdropFilter: "blur(4px)",
