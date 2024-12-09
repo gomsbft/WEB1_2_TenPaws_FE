@@ -65,16 +65,18 @@ const MatchingPage = () => {
   }, [])
 
   useEffect(() => {
-    const userRole = async () => {
-      try {
-        const response = await axiosInstance.get(`/api/v1/features/role`, {headers}); // 현재 로그인 유저 role 확인 API 호출
-        setUseRole(response.data)
-      } catch (error) {
-        console.error("유저 role 불러오는 중 오류 발생:", error);
-        // handleError(error);
-      }
-    };
-    userRole(); // 데이터 가져오기 함수 실행
+    if(token) {
+      const userRole = async () => {
+        try {
+          const response = await axiosInstance.get(`/api/v1/features/role`, {headers}); // 현재 로그인 유저 role 확인 API 호출
+          setUseRole(response.data)
+        } catch (error) {
+          console.error("유저 role 불러오는 중 오류 발생:", error);
+          // handleError(error);
+        }
+      };
+      userRole(); // 데이터 가져오기 함수 실행
+    }
   }, [token]); 
 
   const shelter = useRole.role == "ROLE_SHELTER"

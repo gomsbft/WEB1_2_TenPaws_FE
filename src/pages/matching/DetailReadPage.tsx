@@ -118,21 +118,23 @@ const DetailReadPage = () => {
 
   // ID, ROLE 불러오기
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userIdResponse = await axiosInstance.get(`/api/v1/features/user-id`, { headers });
-        setUseId(userIdResponse.data);
-
-        const roleResponse = await axiosInstance.get(`/api/v1/features/role`, { headers });
-        setRoles(roleResponse.data);
-      } catch (error) {
-        console.error("유저 데이터를 불러오는 중 오류 발생:", error);
-      } finally {
-        setIsLoading(false); // 로딩 상태 종료
-      }
-    };
+    if(token) {
+      const fetchUserData = async () => {
+        try {
+          const userIdResponse = await axiosInstance.get(`/api/v1/features/user-id`, { headers });
+          setUseId(userIdResponse.data);
   
-    fetchUserData();
+          const roleResponse = await axiosInstance.get(`/api/v1/features/role`, { headers });
+          setRoles(roleResponse.data);
+        } catch (error) {
+          console.error("유저 데이터를 불러오는 중 오류 발생:", error);
+        } finally {
+          setIsLoading(false); // 로딩 상태 종료
+        }
+      };
+    
+      fetchUserData();
+    }
   }, [token]);
   
 
@@ -166,8 +168,6 @@ const DetailReadPage = () => {
       petApplyInfo();
     }
   }, [roles]);
-
-  console.log(petApplyInfo)
 
 
   // 입양 신청 

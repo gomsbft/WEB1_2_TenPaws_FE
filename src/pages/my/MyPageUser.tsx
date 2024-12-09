@@ -93,16 +93,18 @@ const MyPageUser: React.FC = () => {
 
   // ID 불러오기
   useEffect(() => {
-    const userId = async () => {
-      try {
-        const response = await axiosInstance.get(`/api/v1/features/user-id`, {headers});
-        setUseId(response.data);
-      } catch(error: any) {
-        console.error("유저 ID를 불러오는 중 오류 발생:", error);
-        // handleError(error);
-      }
-    };
-    userId();
+    if(token) {
+      const userId = async () => {
+        try {
+          const response = await axiosInstance.get(`/api/v1/features/user-id`, {headers});
+          setUseId(response.data);
+        } catch(error: any) {
+          console.error("유저 ID를 불러오는 중 오류 발생:", error);
+          // handleError(error);
+        }
+      };
+      userId();
+    }
   }, [token])
 
   // 유저, 펫 정보 가져오기
