@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../../components/Header";
 import useUserStore from "../../store/store";
+import Chat from "../../components/Chat";
+import FAQ from "../../components/FAQ";
 
 interface Comment {
   id: number;
@@ -164,6 +166,8 @@ const QAandApost = () => {
   return (
     <div>
       <Header />
+      <Chat/>
+      <FAQ/>
       <div className="flex flex-col justify-center items-center">
         <div className="w-full">
           <div className="relative">
@@ -280,7 +284,7 @@ const QAandApost = () => {
                 onClick={() => navigate("/guide/qna")}>
                 목록으로
               </div>
-              {(qnapost.writerEmail === currentUserEmail || role === "ROLE_ADMIN") && (
+              {localStorage.getItem("accessToken") && (qnapost.writerEmail === currentUserEmail || role === "ROLE_ADMIN") && (
                   <>
                     <div
                       className="float-right mr-8 mb-20 bg-[#3c2a13]/90 p-4 text-white font-bold text-[20px] cursor-pointer rounded-xl hover:scale-105 transition-transform"
@@ -295,7 +299,7 @@ const QAandApost = () => {
                   </>
                )}
 
-              {role === "ROLE_ADMIN" && !reply && (
+              {role === "ROLE_ADMIN" && localStorage.getItem("accessToken") && !reply && (
                 <div
                   className="float-right mr-8 mb-20 bg-[#3c2a13]/90 p-4 text-white font-bold text-[20px] cursor-pointer rounded-xl hover:scale-105 transition-transform"
                   onClick={() => setReply(!reply)}>

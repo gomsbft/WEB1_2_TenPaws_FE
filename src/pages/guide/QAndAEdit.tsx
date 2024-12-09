@@ -6,6 +6,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import Header from "../../components/Header";
+import Chat from "../../components/Chat";
+import FAQ from "../../components/FAQ";
 
 const QAandAEdit = () => {
     const [content, setContent] = useState("");
@@ -85,6 +87,8 @@ const QAandAEdit = () => {
     return (
       <div>
         <Header/>
+        <Chat/>
+        <FAQ/>
         <div className="flex flex-col justify-center items-center">
           <div className="w-full">
             <div className="relative">

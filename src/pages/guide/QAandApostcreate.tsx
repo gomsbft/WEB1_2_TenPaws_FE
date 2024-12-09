@@ -6,9 +6,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import Header from "../../components/Header";
-
-//gyutest@gmail.com
-//gyutest123
+import Chat from "../../components/Chat";
+import FAQ from "../../components/FAQ";
 
 const QAandApostcreate = () => {
   const [content, setContent] = useState("");
@@ -84,6 +83,8 @@ const QAandApostcreate = () => {
   return (
     <div>
       <Header/>
+      <Chat/>
+      <FAQ/>
     <div className="flex flex-col justify-center items-center">
         <div className="w-full">
           <div className="relative">

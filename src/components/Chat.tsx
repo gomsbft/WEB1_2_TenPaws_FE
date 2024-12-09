@@ -105,7 +105,7 @@ const location = window.location.pathname;
     }
   }, [userEmail]);
 
-  // fetchChatroom 함수를 store에 등록 (한 번만)
+  // fetchChatroom 함수 전역
   useEffect(() => {
     setFetchChatroom(async () => {
       try {
@@ -122,7 +122,7 @@ const location = window.location.pathname;
     });
   }, [setFetchChatroom]);
 
-  // 컴포넌트 마운트 시 WebSocket 연결 및 채팅방 목록 로드
+  //WebSocket 연결 및 채팅방 목록 로드
   useEffect(() => {
     if (!isConnected) {
       connectWebSocket();
@@ -461,7 +461,6 @@ const location = window.location.pathname;
                   </div>
                 )
               )}
-              {/* 스크롤 위치 지정을 위한 더미 div */}
               <div ref={messageEndRef} />
             </div>
 
