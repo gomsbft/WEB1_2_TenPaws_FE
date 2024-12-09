@@ -284,7 +284,7 @@ const QAandApost = () => {
                 onClick={() => navigate("/guide/qna")}>
                 목록으로
               </div>
-              {(qnapost.writerEmail === currentUserEmail || role === "ROLE_ADMIN") && (
+              {localStorage.getItem("accessToken") && (qnapost.writerEmail === currentUserEmail || role === "ROLE_ADMIN") && (
                   <>
                     <div
                       className="float-right mr-8 mb-20 bg-[#3c2a13]/90 p-4 text-white font-bold text-[20px] cursor-pointer rounded-xl hover:scale-105 transition-transform"
@@ -299,7 +299,7 @@ const QAandApost = () => {
                   </>
                )}
 
-              {role === "ROLE_ADMIN" && !reply && (
+              {role === "ROLE_ADMIN" && localStorage.getItem("accessToken") && !reply && (
                 <div
                   className="float-right mr-8 mb-20 bg-[#3c2a13]/90 p-4 text-white font-bold text-[20px] cursor-pointer rounded-xl hover:scale-105 transition-transform"
                   onClick={() => setReply(!reply)}>

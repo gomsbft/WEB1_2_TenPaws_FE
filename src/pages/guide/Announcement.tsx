@@ -115,7 +115,7 @@ const Announcement = () => {
             </div>
 
             {/* Admin 버튼 */}
-            {role === "ROLE_ADMIN" && (
+            {role === "ROLE_ADMIN" && localStorage.getItem("accessToken") && (
               <div className="flex mb-20">
                 <div
                   className="bg-[#3c2a13]/90 p-4 text-white font-bold text-[20px] cursor-pointer rounded-xl hover:scale-105 transition-transform"
