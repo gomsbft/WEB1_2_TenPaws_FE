@@ -223,7 +223,6 @@ const Header = () => {
                       선호 동물 입력 및 수정
                     </Link>
                   )}
-                 
                   {/* <Link
                     to="/my-walking-course"
                     className="mb-3 text-sm font-normal text-black transition-transform duration-200 sm:text-lg md:text-xl lg:text-2xl xl:text-2xl hover:scale-105"

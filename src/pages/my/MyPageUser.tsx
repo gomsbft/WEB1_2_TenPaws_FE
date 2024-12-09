@@ -224,6 +224,7 @@ const MyPageUser: React.FC = () => {
       await axiosInstance.delete(`/api/v1/users/${useId.Id}`, {headers});
       alert('회원탈퇴가 완료되었습니다.');
       setDeleteModalOpen(false);
+      navigate("/");
     } catch (error) {
       console.error('회원탈퇴 중 오류 발생:', error);
       alert('회원탈퇴에 실패했습니다.');
