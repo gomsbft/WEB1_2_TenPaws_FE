@@ -205,8 +205,10 @@ const Main: React.FC = () => {
       </section>
 
       {/* 푸터 */}
+      <div className="pt-5">
       <Footer />
 
+    </div>
     </div>
   );
 };
