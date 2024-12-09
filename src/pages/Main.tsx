@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Chat from "../components/Chat";
@@ -40,6 +40,7 @@ const descriptions: Record<IconType, Description> = {
 
 const Main: React.FC = () => {
   const [activeIcon, setActiveIcon] = useState<IconType>("dog");
+  const navigation = useNavigate();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -58,7 +59,9 @@ const Main: React.FC = () => {
             <div className="text-sm sm:text-3xl md:text-4xl lg:text-5xl pb-5 sm:pb-7 md:pb-9 lg:pb-12 xl:pb-15">
               AI가 맺어주는 하나뿐인 인연
             </div>
-            <div className="font-bold text-white bg-[#f1a34a] inline py-2 sm:py-3 px-8 sm:px-16 text-xl sm:text-2xl md:text-3xl rounded-full shadow-[0_0_15px_rgba(0,0,0,0.5)] cursor-pointer hover:bg-[#3c2a13] hover:duration-300">
+            <div
+              className="font-bold text-white bg-[#f1a34a] inline py-2 sm:py-3 px-8 sm:px-16 text-xl sm:text-2xl md:text-3xl rounded-full shadow-[0_0_15px_rgba(0,0,0,0.5)] cursor-pointer hover:bg-[#3c2a13] hover:duration-300"
+              onClick={() => navigation("/matching")}>
               시작하기
             </div>
           </div>
