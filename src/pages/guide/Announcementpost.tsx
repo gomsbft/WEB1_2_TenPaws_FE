@@ -24,12 +24,12 @@ const Announcementpost = () => {
 
   //조회
   useEffect(() => {
-    let isMounted = true;  // 마운트 상태를 추적하는 플래그
+    let isMounted = true; 
 
     const fetchAnnouncementPost = async () => {
       try {
         const response = await axios.get(`http://15.164.103.160:8080/api/v1/announcements/${id}`);
-        if (isMounted) {  // 컴포넌트가 마운트된 상태일 때만 상태 업데이트
+        if (isMounted) {
           setAnnouncementPost(response.data);
         }
       } catch (error) {
@@ -45,9 +45,9 @@ const Announcementpost = () => {
     }
 
     return () => {
-      isMounted = false;  // 클린업 함수에서 마운트 상태 플래그를 false로 설정
+      isMounted = false;
     };
-  }, [id, navigate]);  // navigate를 의존성 배열에 추가
+  }, [id, navigate]); 
 
   //삭제
   const handleDelete = async () => {

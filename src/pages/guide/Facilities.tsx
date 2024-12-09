@@ -71,7 +71,7 @@ const Facilities = () => {
       };
 
       const mapInstance = new window.kakao.maps.Map(mapRef.current, options);
-      setMap(mapInstance); // map 객체 저장
+      setMap(mapInstance);
 
       // 현재 위치 마커
       const currentMarker = new window.kakao.maps.CustomOverlay({
@@ -148,7 +148,6 @@ const Facilities = () => {
             setMarkers((prev) => ({ ...prev, [place.id]: marker }));
             setOverlays((prev) => ({ ...prev, [place.id]: customOverlay }));
 
-            //마커호버
             window.kakao.maps.event.addListener(marker, "mouseover", () => {
               customOverlay.setMap(mapInstance);
             });
@@ -161,7 +160,7 @@ const Facilities = () => {
 
       const searchOption = {
         location: new window.kakao.maps.LatLng(userLocation.lat, userLocation.lng),
-        radius: 3000, //반경 km
+        radius: 3000, 
         sort: window.kakao.maps.services.SortBy.DISTANCE
       };
 

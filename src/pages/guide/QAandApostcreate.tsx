@@ -9,9 +9,6 @@ import Header from "../../components/Header";
 import Chat from "../../components/Chat";
 import FAQ from "../../components/FAQ";
 
-//gyutest@gmail.com
-//gyutest123
-
 const QAandApostcreate = () => {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("")
