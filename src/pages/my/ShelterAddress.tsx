@@ -27,7 +27,6 @@ const ShelterAddress: React.FC = () => {
   const { petId } = useParams();
   const mapRef = useRef<HTMLDivElement>(null);
   const [token, setToken] = useState<string | null>(null);
-  const [error, setError] = useState<{ status: number; message: string } | null>(null);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,7 +70,6 @@ const ShelterAddress: React.FC = () => {
           setUseRole(roleResponse.data);
         } catch (error) {
           console.error("유저 데이터를 불러오는 중 오류 발생:", error);
-          handleError(error);
         } finally {
           setIsLoading(false); // 로딩 상태 종료
         }
@@ -90,7 +88,6 @@ const ShelterAddress: React.FC = () => {
           setShelterInfo(response.data);
         } catch (error) {
           console.error("보호소 정보를 불러오는 중 오류 발생:", error);
-          // handleError(error);
         }
       };
       shelterInfo();
@@ -172,14 +169,15 @@ const ShelterAddress: React.FC = () => {
   // 정보 수정 제출
   const editSubmit = async (): Promise<void> => {
     if (!shelterInfo) return;
-
-    try {
-      await axiosInstance.put(`/api/v1/shelters/${useId.Id}`, shelterInfo, {headers});
-      alert('정보가 수정되었습니다.');
-      setIsModalOpen(false)
-    } catch (error) {
-      console.error('정보 수정 중 오류 발생:', error);
-      alert('정보 수정에 실패했습니다.');
+    if (useId.Id) {
+      try {
+        await axiosInstance.put(`/api/v1/shelters/${useId.Id}`, shelterInfo, {headers});
+        alert('정보가 수정되었습니다.');
+        setIsModalOpen(false)
+      } catch (error) {
+        console.error('정보 수정 중 오류 발생:', error);
+        alert('정보 수정에 실패했습니다.');
+      }
     }
   };
 
@@ -187,17 +185,7 @@ const ShelterAddress: React.FC = () => {
   const Cancel = () => {
     navigate(-1); // 이전 페이지로 이동
   };
-
-  // 에러 핸들링 함수
-  const handleError = (error: any) => {
-    const status = error.response?.status || 500;
-    const message = error.response?.data?.message || "알 수 없는 오류가 발생했습니다.";
-    navigate("/errorpage", { state: { status, message } }); // state로 에러 정보 전달
-  };
   
-  if (error) return null; // 이미 에러 페이지로 이동한 경우 렌더링 방지
-  
-
 
   const shelter = useRole.role == "ROLE_SHELTER" && useId.Id == shelterInfo.shelterId
 
