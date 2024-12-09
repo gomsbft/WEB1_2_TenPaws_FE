@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../../components/Header";
 import useUserStore from "../../store/store";
+import Chat from "../../components/Chat";
+import FAQ from "../../components/FAQ";
 
 interface AnnouncementPost {
   id: number;
@@ -73,6 +75,8 @@ const Announcementpost = () => {
   return (
     <div>
     <Header/>
+    <Chat/>
+    <FAQ/>
     <div className="flex flex-col justify-center items-center">
         <div className="w-full">
           <div className="relative">

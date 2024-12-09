@@ -6,6 +6,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import Header from "../../components/Header";
+import FAQ from "../../components/FAQ";
+import Chat from "../../components/Chat";
 
 const AnnouncementEdit = () => {
   const [content, setContent] = useState("");
@@ -90,6 +92,8 @@ const AnnouncementEdit = () => {
   return (
     <div>
       <Header />
+      <FAQ/>
+      <Chat/>
       <div className="flex flex-col justify-center items-center">
         <div className="w-full">
           <div className="relative">

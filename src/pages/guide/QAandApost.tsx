@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../../components/Header";
 import useUserStore from "../../store/store";
+import Chat from "../../components/Chat";
+import FAQ from "../../components/FAQ";
 
 interface Comment {
   id: number;
@@ -164,6 +166,8 @@ const QAandApost = () => {
   return (
     <div>
       <Header />
+      <Chat/>
+      <FAQ/>
       <div className="flex flex-col justify-center items-center">
         <div className="w-full">
           <div className="relative">

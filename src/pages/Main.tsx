@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Chat from "../components/Chat";
+import FAQ from "../components/FAQ";
 
 // 상세 설명 데이터 타입 정의
 type IconType = "dog" | "approve" | "board" | "check";
@@ -41,7 +43,8 @@ const Main: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       {/* 헤더 */}
       <Header />
-
+      <Chat/>
+      <FAQ/>
       {/* About TenPaws */}
       <section className="flex flex-col items-center justify-center bg-[#f1a34a] py-5 px-4">
         <h2 className="text-3xl sm:text-3xl md:text-4xl font-bold mb-3">About TenPaws</h2>
