@@ -18,6 +18,7 @@ const Facilities = () => {
   const [map, setMap] = useState<any>(null);
   const [selectCategory, setSelectCategory] = useState<string | null>(null);
   const [isPanelOpen, setIsPanelOpen] = useState(true);
+  const [isKakaoMapLoaded, setIsKakaoMapLoaded] = useState(false);
 
   //카테고리 구분 및 거리정렬 함수
   const filterCategory = selectCategory
@@ -57,62 +58,79 @@ const Facilities = () => {
     }
   }, []);
 
-  //카카오 api 연동
+  // Kakao Maps API 로드 
   useEffect(() => {
-    if (!userLocation) return;
-    if (places.length > 0) return;
-
-    window.kakao.maps.load(() => {
-      if (!mapRef.current) return;
-
-      const options = {
-        center: new window.kakao.maps.LatLng(userLocation.lat, userLocation.lng),
-        level: 5 // 지도 반경
-      };
-
-      const mapInstance = new window.kakao.maps.Map(mapRef.current, options);
-      setMap(mapInstance);
-
-      // 현재 위치 마커
-      const currentMarker = new window.kakao.maps.CustomOverlay({
-        position: new window.kakao.maps.LatLng(userLocation.lat, userLocation.lng),
-        map: mapInstance,
-        content: `
-          <div style="
-            width: 30px;
-            height: 30px;
-            background: red;
-            border: 3px solid white;
-            border-radius: 50%;
-            box-shadow: 0 0 5px rgba(0,0,0,0.3);
-          "></div>
-        `
+    const script = document.createElement('script');
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${import.meta.env.VITE_KAKAO_MAP_KEY}&libraries=services&autoload=false`;
+    script.async = true;
+    
+    script.onload = () => {
+      window.kakao.maps.load(() => {
+        setIsKakaoMapLoaded(true);
       });
+    };
+    
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
 
-      // 현재 위치 텍스트 조절
-      const currentOverlay = new window.kakao.maps.CustomOverlay({
-        position: currentMarker.getPosition(),
-        content: `
-          <div style="
-            padding: 10px;
-            text-align: center;
-            background: white;
-            border-radius: 4px;
-            font-weight: bold;
-            min-width: 120px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-            font-size: 18px;
-          ">
-            현재 위치
-          </div>
-        `,
-        xAnchor: 0.5,
-        yAnchor: 1.5
-      });
-      currentOverlay.setMap(mapInstance);
+  // 기존 지도 초기화 useEffect 수정
+  useEffect(() => {
+    if (!userLocation || !isKakaoMapLoaded || places.length > 0 || !window.kakao?.maps) return;
 
-      // 장소 검색
-      const ps = new window.kakao.maps.services.Places(mapInstance);
+    if (!mapRef.current) return;
+
+    const options = {
+      center: new window.kakao.maps.LatLng(userLocation.lat, userLocation.lng),
+      level: 5
+    };
+
+    const mapInstance = new window.kakao.maps.Map(mapRef.current, options);
+    setMap(mapInstance);
+
+    // 현재 위치 마커
+    const currentMarker = new window.kakao.maps.CustomOverlay({
+      position: new window.kakao.maps.LatLng(userLocation.lat, userLocation.lng),
+      map: mapInstance,
+      content: `
+        <div style="
+          width: 30px;
+          height: 30px;
+          background: red;
+          border: 3px solid white;
+          border-radius: 50%;
+          box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        "></div>
+      `
+    });
+
+    // 현재 위치 텍스트 조절
+    const currentOverlay = new window.kakao.maps.CustomOverlay({
+      position: currentMarker.getPosition(),
+      content: `
+        <div style="
+          padding: 10px;
+          text-align: center;
+          background: white;
+          border-radius: 4px;
+          font-weight: bold;
+          min-width: 120px;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+          font-size: 18px;
+        ">
+          현재 위치
+        </div>
+      `,
+      xAnchor: 0.5,
+      yAnchor: 1.5
+    });
+    currentOverlay.setMap(mapInstance);
+
+    // 장소 검색
+    const ps = new window.kakao.maps.services.Places(mapInstance);
 
       // 검색 결과
       const placesSearchCB = (data: any, status: any) => {
@@ -164,13 +182,12 @@ const Facilities = () => {
         sort: window.kakao.maps.services.SortBy.DISTANCE
       };
 
-      setPlaces([]);
-      ps.keywordSearch("동물병원", placesSearchCB, searchOption);
-      ps.keywordSearch("애견카페", placesSearchCB, searchOption);
-      ps.keywordSearch("애견미용", placesSearchCB, searchOption);
-      ps.keywordSearch("반려동물용품", placesSearchCB, searchOption);
-    });
-  }, [userLocation]);
+    setPlaces([]);
+    ps.keywordSearch("동물병원", placesSearchCB, searchOption);
+    ps.keywordSearch("애견카페", placesSearchCB, searchOption);
+    ps.keywordSearch("애견미용", placesSearchCB, searchOption);
+    ps.keywordSearch("반려동물용품", placesSearchCB, searchOption);
+  }, [userLocation, isKakaoMapLoaded]);
 
   const getLastCategory = (categoryName: string) => {
     return categoryName.split(">").pop()?.trim() || categoryName;
