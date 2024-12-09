@@ -57,21 +57,7 @@ const DetailReadPage = () => {
   const [token, setToken] = useState<string | null>(null);
   const [isApplyModalOpen, setApplyModalOpen] = useState<boolean>(false);
 
-  const [petApplyInfo, setPetApplyInfo] = useState<PetApplyInfo>({
-    id: 0,
-    pet: {
-      petId: 0,
-      species: "",
-      size: "",
-      age: "",
-      personality: "",
-      exerciseLevel: 0,
-      imageUrls: [],
-    },
-    userId: 0,
-    applyDate: "",
-    applyStatus: ""
-  });
+  const [petApplyInfo, setPetApplyInfo] = useState<PetApplyInfo | null>(null);
 
   const [petInfo, setPetInfo] = useState({
     petId: 0,
@@ -167,8 +153,12 @@ const DetailReadPage = () => {
       const petApplyInfo = async () => {
         try {
           const response = await axiosInstance.get(`/api/v1/applypet/${useId.Id}/list`, {headers});
-          setPetApplyInfo(response.data[0]);
-          console.log(response.data[0])
+          if (response.data && response.data.length > 0) {
+            setPetApplyInfo(response.data[0]);
+          }else {
+            setPetApplyInfo(null);
+          }
+
         }catch(error: any) {
           console.error('동물 입양 정보를 불러오는 중 오류 발생:', error);
         }
@@ -176,6 +166,8 @@ const DetailReadPage = () => {
       petApplyInfo();
     }
   }, [roles]);
+
+  console.log(petApplyInfo)
 
 
   // 입양 신청 
@@ -364,7 +356,7 @@ const DetailReadPage = () => {
           </section>
         : 
           <section className="flex gap-32 my-8">
-            {petApplyInfo.applyStatus === "PENDING" ? (
+            {petApplyInfo && petApplyInfo.applyStatus === "PENDING" ? (
               <button
                 className="px-4 py-2 text-lg font-bold text-gray-500 cursor-not-allowed"
                 disabled

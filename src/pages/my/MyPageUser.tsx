@@ -66,7 +66,7 @@ const MyPageUser: React.FC = () => {
     userRole: ""
   });
 
-  const [petInfo, setPetInfo] = useState<PetInfo[]>([]);
+  const [petInfo, setPetInfo] = useState<PetInfo[] | null>([]);
 
   const [passwordError, setPasswordError] = useState<string | null>(null); // 비밀번호 오류 메시지 상태
   const [useId, setUseId] = useState<UseId>({
@@ -86,6 +86,8 @@ const MyPageUser: React.FC = () => {
   const headers = {
     'Authorization': `${token}`,
   };
+
+  console.log(token)
 
 
 
@@ -119,7 +121,11 @@ const MyPageUser: React.FC = () => {
       const petInfos = async () => {
         try {
           const response = await axiosInstance.get<PetInfo[]>(`/api/v1/applypet/${useId.Id}/list`, {headers});
-          setPetInfo(response.data);
+          if (response.data && response.data.length > 0) {
+            setPetInfo(response.data);
+          }else {
+            setPetInfo(null);
+          }
         }catch(error: any) {
           console.error('입양신청 정보를 불러오는 중 오류 발생:', error);
           // handleError(error);
