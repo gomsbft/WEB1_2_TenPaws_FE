@@ -200,8 +200,8 @@ const Main: React.FC = () => {
       {/* 푸터 */}
       <div className="pt-5">
       <Footer />
-      </div>
       
+      </div>
     </div>
   );
 };
