@@ -91,7 +91,7 @@ const MatchingPage = () => {
   // 필터링된 동물 리스트 반환
   const filteredPets = Array.isArray(pets) ? pets.filter((pet) => {
     return (
-      // pet.status === "신청가능" &&
+      pet.status === "AVAILABLE" &&
       (!filters.species || pet.species === filters.species) &&
       (!filters.age || pet.age === filters.age) &&
       (!filters.size || pet.size === filters.size)
