@@ -22,7 +22,6 @@ interface UseRole {
 
 const MatchingPage = () => {
   const [pets, setPets] = useState<ProcessedPet[]>([]); // 동물 데이터 저장 상태
-  const [error, setError] = useState<{ status: number; message: string } | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [token, setToken] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -56,7 +55,6 @@ const MatchingPage = () => {
         console.log(response.data)
       } catch (error) {
         console.error("동물 리스트를 불러오는 중 오류 발생:", error);
-        // handleError(error);
       } finally {
         setLoading(false); // 로딩 상태 종료
       }
@@ -72,7 +70,6 @@ const MatchingPage = () => {
           setUseRole(response.data)
         } catch (error) {
           console.error("유저 role 불러오는 중 오류 발생:", error);
-          // handleError(error);
         }
       };
       userRole(); // 데이터 가져오기 함수 실행
@@ -80,7 +77,6 @@ const MatchingPage = () => {
   }, [token]); 
 
   const shelter = useRole.role == "ROLE_SHELTER"
-  // const shelter = true // 임시 테스트용
 
   // 필터 변경 시 호출되는 핸들러
   const filterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -101,25 +97,17 @@ const MatchingPage = () => {
     );
   }) : [];
 
-  console.log(filteredPets);
   
   // 상세 페이지로 이동하는 링크 생성 함수
   const detailLink = (petId:number) => {
     return `/detail/${petId}`; // 상세 페이지 URL 생성
   };
 
-  // 에러 핸들링 함수
-  const handleError = (error: any) => {
-    const status = error.response?.status || 500;
-    const message = error.response?.data?.message || "알 수 없는 오류가 발생했습니다.";
-    navigate("/errorpage", { state: { status, message } }); // state로 에러 정보 전달
-  };
 
   if (loading) {
     return <div>로딩 중...</div>; // 로딩 상태 표시
   }
       
-  if (error) return null; // 이미 에러 페이지로 이동한 경우 렌더링 방지
 
   
   return (

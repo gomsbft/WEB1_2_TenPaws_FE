@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { GoChevronRight } from "react-icons/go";
 import MyPageModal from '../../components/MyPageModal';
 import Header from '../../components/Header';
-import mainImage from '../../assets/image/mainimage.webp'
 import axios from 'axios';
 
 
@@ -63,7 +62,6 @@ const MyPageUser: React.FC = () => {
     type: "",
     role: ""
   })
-  const [error, setError] = useState<{ status: number; message: string } | null>(null);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState<UserInfo | null>({
     id: "",
@@ -281,15 +279,6 @@ const MyPageUser: React.FC = () => {
       }
     }
   }
-
-  // 에러 핸들링 함수
-  const handleError = (error: any) => {
-    const status = error.response?.status || 500;
-    const message = error.response?.data?.message || "알 수 없는 오류가 발생했습니다.";
-    navigate("/errorpage", { state: { status, message } }); // state로 에러 정보 전달
-  };
-
-if (error) return null; // 이미 에러 페이지로 이동한 경우 렌더링 방지
 
 
 

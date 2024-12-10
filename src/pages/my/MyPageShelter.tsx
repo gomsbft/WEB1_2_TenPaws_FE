@@ -34,7 +34,6 @@ const MyPageShelter: React.FC = () => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [token, setToken] = useState<string | null>(null);
-  const [error, setError] = useState<{ status: number; message: string } | null>(null);
   const navigate = useNavigate();
   const [passwordError, setPasswordError] = useState<string | null>(null); // 비밀번호 오류 메시지 상태
   const [useId, setUseId] = useState<UseId>({
@@ -195,15 +194,6 @@ const MyPageShelter: React.FC = () => {
   const detailLink = (petId:number) => {
     return `/detail/${petId}`; // 상세 페이지 URL 생성
   };
-
-  // 에러 핸들링 함수
-  const handleError = (error: any) => {
-    const status = error.response?.status || 500;
-    const message = error.response?.data?.message || "알 수 없는 오류가 발생했습니다.";
-    navigate("/errorpage", { state: { status, message } }); // state로 에러 정보 전달
-  };
-    
-  if (error) return null; // 이미 에러 페이지로 이동한 경우 렌더링 방지
   
 
   return (
